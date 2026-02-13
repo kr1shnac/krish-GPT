@@ -11,6 +11,7 @@ import {
   Card,
 } from "@/components/ui/card";
 import { ChatMessage } from "./ChatMessage";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export function ChatWindow() {
   return (
@@ -21,15 +22,25 @@ export function ChatWindow() {
             <h1 className="text-4xl font-bold">krish-GPT</h1>
           </CardTitle>
         </CardHeader>
-        <CardContent className="h-[400px] bg-muted/50 p-4 rounded-md">
-          {/* <div className="text-sm text-gray-500">krish is ready to chat...</div> */}
-          <div className="flex flex-col p-4">
-            <ChatMessage
-              role="ai"
-              content="Hello! I am Krish-GPT. How can I help you?"
-            />
-            <ChatMessage role="user" content="I am building a Next.js app." />
-          </div>
+        <CardContent className="p-0">
+          <ScrollArea className="h-[500px] w-full p-4 pr-4">
+            <div className="flex flex-col gap-2">
+              <ChatMessage role="ai" content="Hello! I am Krish-GPT." />
+              <ChatMessage
+                role="user"
+                content="I just added a custom ScrollArea component!"
+              />
+              <ChatMessage
+                role="ai"
+                content="That is great. Now your chat won't break the layout."
+              />
+              <ChatMessage role="user" content="Testing overflow..." />
+              <ChatMessage
+                role="ai"
+                content="If you add enough messages, you will see a nice slim scrollbar on the right."
+              />
+            </div>
+          </ScrollArea>
         </CardContent>
         <CardFooter className="flex gap-2">
           <Input type="search" placeholder="Search..." />
