@@ -19,10 +19,7 @@ export function ChatMessage({ role, content }: ChatMessageProps) {
             : "bg-gray-100 text-gray-800 rounded-bl-none"
         }`}
       >
-        <div className="flex flex-col p-4">
-          <ChatMessage role="user" content="Hey!!! i am the user" />
-          <ChatMessage role="ai" content="how can i help?" />
-        </div>
+        {content}
       </div>
     </div>
   );
