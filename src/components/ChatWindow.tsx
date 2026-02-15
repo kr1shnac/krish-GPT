@@ -1,66 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useChat } from "ai/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowUp } from "lucide-react";
 import {
-  CardAction,
+  Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-  Card,
 } from "@/components/ui/card";
-import { ChatMessage } from "./ChatMessage";
 import { ScrollArea } from "@/components/ui/scroll-area";
-
-type Message = {
-  id: string;
-  role: "user" | "ai";
-  content: string;
-};
+import { ChatMessage } from "./ChatMessage";
+import { ArrowUp } from "lucide-react";
 
 export function ChatWindow() {
-  const [messages, setMessages] = useState<Message[]>([
-    { id: "1", role: "ai", content: "Heyy krish here, how can I help you?" },
-  ]);
-
-  const [input, setInput] = useState("");
-
-  const handleSend = async () => {
-    if (!input.trim()) return;
-
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      role: "user",
-      content: input,
-    };
-
-    setMessages((prev) => [...prev, userMessage]);
-
-    setInput("");
-
-    try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: input }),
-      });
-
-      const data = await response.json();
-
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: "ai",
-        content: data.content,
-      };
-      setMessages((prev) => [...prev, aiMessage]);
-    } catch (error) {
-      console.error("Failed to send message:", error);
-    }
-  };
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
+    api: "/api/chat",
+  });
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-24">
@@ -74,21 +31,26 @@ export function ChatWindow() {
           <ScrollArea className="h-[500px] w-full p-4 pr-4">
             <div className="flex flex-col gap-2">
               {messages.map((m) => (
-                <ChatMessage key={m.id} role={m.role} content={m.content} />
+                <ChatMessage
+                  key={m.id}
+                  role={m.role === "user" ? "user" : "ai"}
+                  content={m.content}
+                />
               ))}
             </div>
           </ScrollArea>
         </CardContent>
         <CardFooter className="flex gap-2">
-          <Input
-            type="search"
-            placeholder="Search..."
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
-          <Button onClick={handleSend} size="icon" aria-label="Submit">
-            <ArrowUp />
-          </Button>
+          <form onSubmit={handleSubmit} className="flex w-full gap-2">
+            <Input
+              value={input}
+              onChange={handleInputChange}
+              placeholder="Ask anything..."
+            />
+            <Button type="submit" size="icon" aria-label="Submit">
+              <ArrowUp />
+            </Button>
+          </form>
         </CardFooter>
       </Card>
     </div>

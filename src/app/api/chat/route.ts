@@ -1,20 +1,25 @@
-import { Content } from "next/font/google";
-import { NextResponse } from "next/server";
+import { createOpenAI } from "@ai-sdk/openai";
+import { streamText } from "ai";
+
+const groq = createOpenAI({
+  baseURL: "https://api.groq.com/openai/v1",
+  apiKey: process.env.GROQ_API_KEY,
+});
+
+export const maxDuration = 30;
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const { messages } = await req.json();
 
-    console.log("Backend Recieved: ", body);
-
-    return NextResponse.json({
-      role: "ai",
-      Content: "hii not krish yet",
+    const result = await streamText({
+      model: groq("llama3-8b-8192"),
+      messages,
     });
+
+    return result.toAIStreamResponse(); // Note: version 3.2 uses toAIStreamResponse
   } catch (error) {
-    return NextResponse.json(
-      { error: "Something went wrong" },
-      { status: 500 },
-    );
+    console.error("AI Error:", error);
+    return new Response("Internal Server Error", { status: 500 });
   }
 }
