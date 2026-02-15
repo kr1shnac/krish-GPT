@@ -20,12 +20,12 @@ export async function POST(req: Request) {
     const selectedModel = model === "gemini" ? google("models/gemini-1.5-pro-latest")
       : groq("llama-3.3-70b-versatile");
 
-    const result = streamText({
+    const result = await streamText({
       model: selectedModel,
       messages,
     });
 
-    return result.toTextStreamResponse();
+    return result.toDataStreamResponse();
   } catch (error) {
     console.error("AI Error:", error);
     return new Response("Internal Server Error", { status: 500 });
