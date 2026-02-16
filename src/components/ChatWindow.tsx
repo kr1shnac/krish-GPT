@@ -13,10 +13,14 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChatMessage } from "./ChatMessage";
 import { ArrowUp } from "lucide-react";
+import { useState } from "react";
 
 export function ChatWindow() {
+  const [selectedModel, setSelectedModel] = useState("llama");
+
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: "/api/chat",
+    body: { model: selectedModel },
   });
 
   return (
@@ -26,6 +30,28 @@ export function ChatWindow() {
           <CardTitle>
             <h1 className="text-4xl font-bold">krish-GPT</h1>
           </CardTitle>
+          <div className="flex gap-4 p-4">
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="model"
+                value="llama"
+                checked={selectedModel === "llama"}
+                onChange={(e) => setSelectedModel(e.target.value)}
+              />
+              <span>Llama 3 (Fast)</span>
+            </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="model"
+                value="gemini"
+                checked={selectedModel === "gemini"}
+                onChange={(e) => setSelectedModel(e.target.value)}
+              />
+              <span>Gemini 1.5 (Smart)</span>
+            </label>
+          </div>
         </CardHeader>
         <CardContent className="p-0">
           <ScrollArea className="h-[500px] w-full p-4 pr-4">
