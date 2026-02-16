@@ -17,7 +17,7 @@ export async function POST(req: Request) {
   try {
     const { messages, model } = await req.json();
 
-    const selectedModel = model === "gemini" ? google("models/gemini-1.5-pro-latest")
+    const selectedModel = model === "gemini" ? google("gemini-1.5-flash")
       : groq("llama-3.3-70b-versatile");
 
     const result = await streamText({
@@ -27,7 +27,13 @@ export async function POST(req: Request) {
 
     return result.toDataStreamResponse();
   } catch (error) {
-    console.error("AI Error:", error);
-    return new Response("Internal Server Error", { status: 500 });
+    console.error("CRITICAL AI ERROR:", error);
+    return new Response(JSON.stringify({ error: "Check terminal for logs" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" }
+    });
+    //   console.error("AI Error:", error);
+    //   return new Response("Internal Server Error", { status: 500 });
+    // }
   }
 }
