@@ -1,13 +1,21 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Bungee, Orbitron } from "next/font/google";
 import "./globals.css";
 
-// 2. Configure the font
-const inter = Inter({ subsets: ["latin"] });
+const bungee = Bungee({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-bungee",
+});
+
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  variable: "--font-orbitron",
+});
 
 export const metadata: Metadata = {
-  title: "Krish-GPT",
-  description: "AI Chatbot built with Next.js and Groq",
+  title: "ROAST-O-MATIC 9000",
+  description: "The Ultimate AI Roasting Platform",
 };
 
 export default function RootLayout({
@@ -16,9 +24,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      {/* 3. Apply the font class to the body */}
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className="dark">
+      <body className={`${orbitron.variable} ${bungee.variable} font-orbitron antialiased bg-background text-foreground`}>
+        {children}
+      </body>
     </html>
   );
 }
