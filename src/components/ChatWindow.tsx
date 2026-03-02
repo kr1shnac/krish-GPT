@@ -11,7 +11,7 @@ export function ChatWindow() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
+  const { messages, input, handleInputChange, handleSubmit, isLoading, append } = useChat({
     api: "/api/chat",
     body: { model: selectedModel },
   });
@@ -73,8 +73,8 @@ export function ChatWindow() {
                   <button
                     onClick={() => setSelectedModel("llama")}
                     className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[9px] font-orbitron tracking-wider transition-all duration-300 ${selectedModel === "llama"
-                        ? "bg-gradient-to-r from-fire-red to-fire-orange text-white shadow-[0_0_10px_rgba(255,42,0,0.25)]"
-                        : "text-gray-600 hover:text-gray-400"
+                      ? "bg-gradient-to-r from-fire-red to-fire-orange text-white shadow-[0_0_10px_rgba(255,42,0,0.25)]"
+                      : "text-gray-600 hover:text-gray-400"
                       }`}
                   >
                     <Zap size={10} />
@@ -131,9 +131,7 @@ export function ChatWindow() {
                       <button
                         key={prompt.text}
                         onClick={() => {
-                          const fakeEvent = { target: { value: prompt.text } } as React.ChangeEvent<HTMLInputElement>;
-                          handleInputChange(fakeEvent);
-                          inputRef.current?.focus();
+                          append({ role: "user", content: prompt.text });
                         }}
                         className={`group flex flex-col items-center gap-2 p-3.5 rounded-xl bg-gradient-to-br ${prompt.color} border border-white/[0.04] hover:border-fire-red/25 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(255,42,0,0.1)] active:scale-95`}
                       >
@@ -199,17 +197,17 @@ export function ChatWindow() {
 
               <button
                 type="submit"
-                disabled={!input.trim() || isLoading}
-                className={`relative w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 flex-shrink-0 ${input.trim()
-                    ? "bg-gradient-to-br from-fire-red to-fire-orange text-white shadow-[0_0_15px_rgba(255,42,0,0.3)] hover:shadow-[0_0_25px_rgba(255,42,0,0.5)] hover:scale-105 active:scale-90"
-                    : "bg-white/[0.03] text-gray-700 border border-white/[0.06]"
+                disabled={!input?.trim() || isLoading}
+                className={`relative w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 flex-shrink-0 ${input?.trim()
+                  ? "bg-gradient-to-br from-fire-red to-fire-orange text-white shadow-[0_0_15px_rgba(255,42,0,0.3)] hover:shadow-[0_0_25px_rgba(255,42,0,0.5)] hover:scale-105 active:scale-90"
+                  : "bg-white/[0.03] text-gray-700 border border-white/[0.06]"
                   }`}
                 aria-label="Send roast"
               >
                 {isLoading ? (
                   <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
-                  <Send size={16} className={input.trim() ? "rotate-[-45deg]" : ""} />
+                  <Send size={16} className={input?.trim() ? "rotate-[-45deg]" : ""} />
                 )}
               </button>
             </form>
