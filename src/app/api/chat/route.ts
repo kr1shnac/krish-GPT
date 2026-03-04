@@ -11,6 +11,13 @@ export const maxDuration = 30;
 
 export async function POST(req: Request) {
   try {
+    if (!process.env.GROQ_API_KEY) {
+      return new Response(
+        "Missing GROQ_API_KEY environment variable. Please add it in your Vercel Dashboard Settings.",
+        { status: 500 }
+      );
+    }
+
     const { messages } = await req.json();
 
     // 2. Hardcode the reliable Llama model
@@ -29,8 +36,8 @@ export async function POST(req: Request) {
     });
 
     return result.toDataStreamResponse();
-  } catch (error) {
+  } catch (error: any) {
     console.error("AI Error:", error);
-    return new Response("Internal Server Error", { status: 500 });
+    return new Response(error.message || "Internal Server Error", { status: 500 });
   }
 }
