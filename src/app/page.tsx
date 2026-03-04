@@ -114,7 +114,7 @@ export default function Home() {
 
         {/* Main Title */}
         <h1
-          className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bungee text-transparent bg-clip-text bg-gradient-to-b from-fire-yellow via-fire-orange to-fire-red animate-title-slam text-center leading-none"
+          className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bungee text-transparent bg-clip-text bg-gradient-to-b from-fire-yellow via-fire-orange to-fire-red animate-title-slam text-center leading-none px-2"
           style={{
             filter: "drop-shadow(0 0 30px rgba(255,42,0,0.4)) drop-shadow(0 0 60px rgba(255,123,0,0.2))",
           }}
@@ -126,15 +126,15 @@ export default function Home() {
         <div className="w-48 h-[2px] bg-gradient-to-r from-transparent via-fire-orange to-transparent my-6 animate-fade-up" style={{ animationDelay: "0.6s", opacity: 0 }} />
 
         {/* Subtitle */}
-        <p className="text-gray-400 font-orbitron text-center max-w-lg text-sm md:text-base tracking-wide leading-relaxed mb-10 animate-fade-up" style={{ animationDelay: "0.8s", opacity: 0 }}>
+        <p className="text-gray-400 font-orbitron text-center max-w-lg text-sm md:text-base tracking-wide leading-relaxed mb-10 animate-fade-up px-4" style={{ animationDelay: "0.8s", opacity: 0 }}>
           Think you can outsmart the machine?{" "}
-          <span className="text-fire-orange animate-glow-pulse inline-block font-semibold">
+          <span className="text-fire-orange animate-glow-pulse inline-block font-semibold mt-1 sm:mt-0">
             Prepare to get destroyed.
           </span>
         </p>
 
         {/* Stats Row */}
-        <div className="flex gap-8 mb-12 animate-fade-up" style={{ animationDelay: "1s", opacity: 0 }}>
+        <div className="flex flex-wrap justify-center gap-6 sm:gap-8 mb-10 sm:mb-12 animate-fade-up" style={{ animationDelay: "1s", opacity: 0 }}>
           {[
             { label: "VICTIMS", value: victimCount.toLocaleString() },
             { label: "WIN RATE", value: victimCount > 0 ? "100%" : "—" },
@@ -181,18 +181,18 @@ export default function Home() {
 
       {/* Modal Container */}
       <div
-        className={`fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 transition-all duration-500 pointer-events-none ${chatOpen ? "opacity-100 scale-100" : "opacity-0 scale-90"
+        className={`fixed inset-0 z-50 flex justify-center items-end sm:items-center sm:p-4 md:p-8 transition-all duration-500 pointer-events-none ${chatOpen ? "opacity-100" : "opacity-0"
           }`}
       >
         <div
-          className={`relative w-full max-w-3xl max-h-[90vh] transition-all duration-500 ${chatOpen ? "translate-y-0 pointer-events-auto" : "translate-y-8 pointer-events-none"
+          className={`relative w-full h-[95vh] sm:h-auto sm:max-w-3xl sm:max-h-[90vh] transition-all duration-500 flex flex-col ${chatOpen ? "translate-y-0 pointer-events-auto sm:scale-100" : "translate-y-full sm:translate-y-8 pointer-events-none sm:scale-95"
             }`}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Close Button */}
           <button
             onClick={closePit}
-            className="absolute -top-4 -right-4 z-[60] w-10 h-10 rounded-full bg-dark-ash border border-fire-red/30 flex items-center justify-center text-gray-400 hover:text-fire-red hover:border-fire-red hover:shadow-[0_0_15px_rgba(255,42,0,0.3)] transition-all duration-300 hover:rotate-90"
+            className="absolute -top-14 right-4 sm:-top-4 sm:-right-4 z-[60] w-10 h-10 rounded-full bg-dark-ash border border-fire-red/30 flex items-center justify-center text-gray-400 hover:text-fire-red hover:border-fire-red hover:shadow-[0_0_15px_rgba(255,42,0,0.3)] transition-all duration-300 hover:rotate-90"
           >
             <X size={18} />
           </button>

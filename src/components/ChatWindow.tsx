@@ -29,10 +29,10 @@ export function ChatWindow() {
   const roastCount = messages.filter(m => m.role === "assistant").length;
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full flex flex-col">
       {/* Outer Shell with animated gradient border */}
-      <div className="border-gradient-fire rounded-2xl overflow-hidden animate-fire-breathe">
-        <div className="rounded-2xl overflow-hidden relative" style={{
+      <div className="border-gradient-fire sm:rounded-2xl rounded-t-2xl overflow-hidden animate-fire-breathe flex-1 flex flex-col">
+        <div className="sm:rounded-2xl rounded-t-2xl overflow-hidden relative flex-1 flex flex-col" style={{
           background: "linear-gradient(180deg, rgba(20,5,0,0.97), rgba(10,10,10,0.98) 30%, rgba(8,8,8,0.99))",
         }}>
 
@@ -93,10 +93,10 @@ export function ChatWindow() {
           </div>
 
           {/* ═══ MESSAGES AREA ═══ */}
-          <div className="h-[450px] overflow-y-auto relative">
+          <div className="flex-1 overflow-y-auto relative min-h-0 sm:h-[450px]">
             <div className="sticky top-0 h-8 bg-gradient-to-b from-[rgba(10,5,0,0.95)] to-transparent z-10 pointer-events-none" />
 
-            <div className="px-5 pb-4 flex flex-col gap-3" ref={scrollRef}>
+            <div className="px-4 sm:px-5 pb-4 flex flex-col gap-3" ref={scrollRef}>
               {messages.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-8 text-center">
 
@@ -122,7 +122,7 @@ export function ChatWindow() {
                   </p>
 
                   {/* Suggested Prompts — styled as cards */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-md">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-md px-2 sm:px-0">
                     {[
                       { icon: <Swords size={14} />, text: "Roast me if you can", color: "from-fire-red/10 to-fire-red/5" },
                       { icon: <Skull size={14} />, text: "You're just a bot", color: "from-fire-orange/10 to-fire-orange/5" },
