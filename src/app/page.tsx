@@ -181,11 +181,11 @@ export default function Home() {
 
       {/* Modal Container */}
       <div
-        className={`fixed inset-0 z-50 flex justify-center items-end sm:items-center sm:p-4 md:p-8 transition-all duration-500 pointer-events-none ${chatOpen ? "opacity-100" : "opacity-0"
+        className={`fixed inset-0 z-50 flex justify-center items-center p-4 sm:p-6 md:p-10 transition-all duration-500 pointer-events-none ${chatOpen ? "opacity-100" : "opacity-0"
           }`}
       >
         <div
-          className={`relative w-full h-[95vh] sm:h-auto sm:max-w-3xl sm:max-h-[90vh] transition-all duration-500 flex flex-col ${chatOpen ? "translate-y-0 pointer-events-auto sm:scale-100" : "translate-y-full sm:translate-y-8 pointer-events-none sm:scale-95"
+          className={`relative w-full max-w-4xl h-[85vh] transition-all duration-500 flex flex-col ${chatOpen ? "translate-y-0 pointer-events-auto scale-100" : "translate-y-12 pointer-events-none scale-95"
             }`}
           onClick={(e) => e.stopPropagation()}
         >

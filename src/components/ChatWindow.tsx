@@ -93,7 +93,7 @@ export function ChatWindow() {
           </div>
 
           {/* ═══ MESSAGES AREA ═══ */}
-          <div className="flex-1 overflow-y-auto relative min-h-0 sm:h-[450px]">
+          <div className="flex-1 overflow-y-auto relative min-h-0">
             <div className="sticky top-0 h-8 bg-gradient-to-b from-[rgba(10,5,0,0.95)] to-transparent z-10 pointer-events-none" />
 
             <div className="px-4 sm:px-5 pb-4 flex flex-col gap-3" ref={scrollRef}>
